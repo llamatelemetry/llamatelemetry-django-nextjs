@@ -55,4 +55,11 @@ uvicorn llamatelemetry_site.asgi:application --host 127.0.0.1 --port 8000 --relo
 
 - Routes are served by Next.js; Django uses a catch-all URL configuration.
 - If you see a hop-by-hop header error under WSGI, the project filters those headers in `backend/llamatelemetry_site/views.py`.
-- Update navigation in `frontend/lib/nav.js` if `zensical.toml` changes.
+- Sync navigation from `zensical.toml` with:
+
+```bash
+python3.11 scripts/sync_nav.py
+```
+
+- `frontend/lib/nav.js` is generated; don’t edit it directly.
+- Search index is generated at runtime from `docs/` via `frontend/lib/search.js`.

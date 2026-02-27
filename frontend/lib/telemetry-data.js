@@ -1,0 +1,96 @@
+export const telemetryTrace = {
+  traceId: "c1f8e0d2b9b94d8d",
+  services: ["llama-server", "llamatelemetry", "otel-collector"],
+  spans: [
+    {
+      id: "span-1",
+      name: "Inference Request",
+      service: "llamatelemetry",
+      start: 0,
+      duration: 920,
+      status: "ok",
+      attributes: {
+        "gen_ai.system": "llama.cpp",
+        "gen_ai.request.model": "gemma-3-1b-q4",
+        "gen_ai.request.max_tokens": 128,
+        "gen_ai.request.temperature": 0.2,
+        "telemetry.pipeline": "otlp",
+      },
+      events: [
+        { time: 40, name: "queue.enter", detail: "request enqueued" },
+        { time: 120, name: "model.loaded", detail: "weights ready" },
+      ],
+    },
+    {
+      id: "span-2",
+      name: "Prompt Tokenization",
+      service: "llama-server",
+      start: 80,
+      duration: 180,
+      status: "ok",
+      attributes: {
+        "gen_ai.token.prompt_count": 342,
+        "gen_ai.token.encoder": "llama.cpp",
+      },
+    },
+    {
+      id: "span-3",
+      name: "Prefill",
+      service: "llama-server",
+      start: 260,
+      duration: 220,
+      status: "ok",
+      attributes: {
+        "gen_ai.prefill.batch_size": 1,
+        "gen_ai.prefill.cache_hit": true,
+      },
+    },
+    {
+      id: "span-4",
+      name: "Decode",
+      service: "llama-server",
+      start: 500,
+      duration: 360,
+      status: "ok",
+      attributes: {
+        "gen_ai.decode.tokens": 128,
+        "gen_ai.decode.tokens_per_second": 58.4,
+      },
+    },
+    {
+      id: "span-5",
+      name: "OTLP Export",
+      service: "otel-collector",
+      start: 740,
+      duration: 120,
+      status: "ok",
+      attributes: {
+        "otel.exporter": "otlp",
+        "otel.endpoint": "https://otlp.grafana.net",
+      },
+    },
+  ],
+  semantics: [
+    {
+      id: "sem-1",
+      name: "llamatelemetry.inference",
+      required: ["gen_ai.system", "gen_ai.request.model", "gen_ai.request.max_tokens"],
+      optional: ["gen_ai.request.temperature", "telemetry.pipeline"],
+      description: "Top-level inference request span with model + runtime info.",
+    },
+    {
+      id: "sem-2",
+      name: "llamatelemetry.tokenize",
+      required: ["gen_ai.token.prompt_count"],
+      optional: ["gen_ai.token.encoder"],
+      description: "Prompt tokenization duration and size.",
+    },
+    {
+      id: "sem-3",
+      name: "llamatelemetry.decode",
+      required: ["gen_ai.decode.tokens"],
+      optional: ["gen_ai.decode.tokens_per_second"],
+      description: "Decode phase measurements for throughput and output tokens.",
+    },
+  ],
+};

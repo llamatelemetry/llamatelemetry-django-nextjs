@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import PrevNext from "../components/PrevNext";
+import QuickstartPanel from "../components/QuickstartPanel";
 import { getDoc, slugToHref } from "../lib/docs";
 import { renderMarkdown } from "../lib/markdown";
 
@@ -14,6 +15,7 @@ export default async function Page() {
   return (
     <article className="doc">
       <div className="doc-meta">Home · llamatelemetry v0.1.0</div>
+      <QuickstartPanel />
       <div className="doc-content" dangerouslySetInnerHTML={{ __html: html }} />
       <PrevNext currentHref={slugToHref([])} />
     </article>

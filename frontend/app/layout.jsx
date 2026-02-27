@@ -1,5 +1,9 @@
 import "./globals.css";
+
+import SearchOverlay from "../components/SearchOverlay";
+import Topbar from "../components/Topbar";
 import Sidebar from "../components/Sidebar";
+import { getSearchIndex } from "../lib/search";
 
 export const metadata = {
   title: {
@@ -10,20 +14,15 @@ export const metadata = {
     "Extensive documentation for llamatelemetry v0.1.0: inference, observability, Kaggle, GGUF, APIs, and notebooks.",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const searchIndex = getSearchIndex();
+
   return (
     <html lang="en">
       <body>
         <div className="page">
-          <header className="topbar">
-            <div className="topbar-inner">
-              <div className="brand">
-                <span className="brand-mark">llama</span>
-                <span className="brand-name">llamatelemetry Documentation</span>
-              </div>
-              <div className="brand-meta">v0.1.0 · CUDA-first Python SDK</div>
-            </div>
-          </header>
+          <Topbar />
+          <SearchOverlay index={searchIndex} />
           <div className="layout">
             <aside className="layout-sidebar">
               <Sidebar />
