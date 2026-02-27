@@ -43,3 +43,6 @@ Thumbs.db
 
 # Misc
 .cache/
+
+# Local scratch
+django-nextjs-commands.txt
