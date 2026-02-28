@@ -46,7 +46,7 @@ Open `http://127.0.0.1:8000` to view the docs through Django.
 
 - Django proxies Next.js through `django-nextjs` using ASGI middleware.
 - The default URL config uses non-streaming rendering so the built-in WSGI dev server works.
-- If you want streaming responses, switch `nextjs_page(stream=True)` in `backend/llamatelemetry_site/urls.py` and run an ASGI server:
+- If you want streaming responses, pass `stream=True` to `render_nextjs_page` in `backend/llamatelemetry_site/views.py` and run an ASGI server:
 
 ```bash
 cd backend
@@ -63,3 +63,5 @@ python3.11 scripts/sync_nav.py
 
 - `frontend/lib/nav.js` is generated; don’t edit it directly.
 - Search index is generated at runtime from `docs/` via `frontend/lib/search.js`.
+- Site metadata and versioning are centralized in `site.json` for both Django and Next.js.
+- Django exposes `site.json` at `/site.json` (override the endpoint with `SITE_INFO_URL` in Next.js if needed).

@@ -28,6 +28,7 @@ function extractHeadings(markdown) {
 }
 
 function categorize(relativePath) {
+  if (relativePath === "index.md") return "Home";
   if (relativePath.startsWith("get-started/")) return "Get Started";
   if (relativePath.startsWith("guides/")) return "Guides";
   if (relativePath.startsWith("reference/")) return "API Reference";

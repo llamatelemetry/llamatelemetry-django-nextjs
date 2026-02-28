@@ -1,4 +1,10 @@
+from django.conf import settings
+from django.http import JsonResponse
 from django_nextjs.render import render_nextjs_page
+
+
+def site_info(request):
+    return JsonResponse(settings.SITE_INFO)
 
 HOP_BY_HOP_HEADERS = {
     "connection",

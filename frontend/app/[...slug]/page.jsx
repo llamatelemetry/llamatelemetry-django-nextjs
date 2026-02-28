@@ -4,6 +4,7 @@ import PrevNext from "../../components/PrevNext";
 import { flatNavItems } from "../../lib/nav";
 import { getDoc, slugToHref } from "../../lib/docs";
 import { renderMarkdown } from "../../lib/markdown";
+import { getSiteInfo } from "../../lib/site";
 
 export async function generateStaticParams() {
   return flatNavItems
@@ -31,10 +32,14 @@ export default async function DocPage({ params }) {
   }
   const html = await renderMarkdown(doc.content);
   const href = slugToHref(slugParts);
+  const site = await getSiteInfo();
+  const version = site.version || "v0.1.0";
 
   return (
     <article className="doc">
-      <div className="doc-meta">{doc.relativePath.replace(/\.md$/, "")} · llamatelemetry v0.1.0</div>
+      <div className="doc-meta">
+        {doc.relativePath.replace(/\.md$/, "")} · llamatelemetry {version}
+      </div>
       <div className="doc-content" dangerouslySetInnerHTML={{ __html: html }} />
       <PrevNext currentHref={href} />
     </article>

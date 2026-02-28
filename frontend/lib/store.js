@@ -2,14 +2,8 @@
 
 import { create } from "zustand";
 
-export const useDocUIStore = create((set, get) => ({
+export const useDocUIStore = create((set) => ({
   // Global UI
-  navCollapsed: false,
-  version: "v0.1.0",
-  setVersion: (version) => set({ version }),
-  toggleNav: () => set((state) => ({ navCollapsed: !state.navCollapsed })),
-
-  // Search
   searchOpen: false,
   searchQuery: "",
   searchScope: "all",
@@ -21,7 +15,6 @@ export const useDocUIStore = create((set, get) => ({
   // Recipes
   recipeQuery: "",
   recipeTags: [],
-  selectedRecipeId: null,
   setRecipeQuery: (recipeQuery) => set({ recipeQuery }),
   toggleRecipeTag: (tag) =>
     set((state) => {
@@ -29,7 +22,6 @@ export const useDocUIStore = create((set, get) => ({
       return { recipeTags: hasTag ? state.recipeTags.filter((t) => t !== tag) : [...state.recipeTags, tag] };
     }),
   clearRecipeTags: () => set({ recipeTags: [] }),
-  selectRecipe: (selectedRecipeId) => set({ selectedRecipeId }),
 
   // Telemetry demo
   telemetryFilters: { service: "all", status: "all", search: "" },

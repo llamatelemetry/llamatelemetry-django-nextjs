@@ -6,8 +6,7 @@ import { recipes, recipeTags } from "../lib/recipes";
 import { useDocUIStore } from "../lib/store";
 
 export default function RecipesHub() {
-  const { recipeQuery, recipeTags: activeTags, setRecipeQuery, toggleRecipeTag, clearRecipeTags, selectRecipe } =
-    useDocUIStore();
+  const { recipeQuery, recipeTags: activeTags, setRecipeQuery, toggleRecipeTag, clearRecipeTags } = useDocUIStore();
 
   const normalizedQuery = recipeQuery.trim().toLowerCase();
   const filtered = recipes.filter((recipe) => {
@@ -54,7 +53,7 @@ export default function RecipesHub() {
 
       <div className="recipes-grid">
         {filtered.map((recipe) => (
-          <article key={recipe.id} className="recipe-card" onClick={() => selectRecipe(recipe.id)}>
+          <article key={recipe.id} className="recipe-card">
             <div className="recipe-title">{recipe.title}</div>
             <div className="recipe-summary">{recipe.summary}</div>
             <div className="recipe-tags">

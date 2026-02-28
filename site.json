@@ -1,0 +1,6 @@
+{
+  "name": "llamatelemetry Documentation",
+  "version": "v0.1.0",
+  "description": "Extensive documentation for llamatelemetry v0.1.0: inference, observability, Kaggle, GGUF, APIs, and notebooks.",
+  "titleTemplate": "%s - llamatelemetry Documentation"
+}

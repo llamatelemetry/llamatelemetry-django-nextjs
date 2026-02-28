@@ -6,7 +6,7 @@ const steps = [
   {
     title: "Install",
     detail: "pip install from GitHub with CUDA extras",
-    code: "pip install --no-cache-dir --force-reinstall \\\n  git+https://github.com/llamatelemetry/llamatelemetry.git@v0.1.0",
+    code: null,
   },
   {
     title: "Run llama-server",
@@ -20,7 +20,21 @@ const steps = [
   },
 ];
 
-export default function QuickstartPanel() {
+function buildSteps(version) {
+  return steps.map((step) =>
+    step.title === "Install"
+      ? {
+          ...step,
+          code: `pip install --no-cache-dir --force-reinstall \\
+  git+https://github.com/llamatelemetry/llamatelemetry.git@${version}`,
+        }
+      : step
+  );
+}
+
+export default function QuickstartPanel({ version }) {
+  const resolvedVersion = version || "v0.1.0";
+  const resolvedSteps = buildSteps(resolvedVersion);
   return (
     <section className="quickstart-panel">
       <div className="quickstart-header">
@@ -34,7 +48,7 @@ export default function QuickstartPanel() {
         </Link>
       </div>
       <div className="quickstart-steps">
-        {steps.map((step) => (
+        {resolvedSteps.map((step) => (
           <div key={step.title} className="quickstart-card">
             <div className="quickstart-title">{step.title}</div>
             <div className="quickstart-detail">{step.detail}</div>

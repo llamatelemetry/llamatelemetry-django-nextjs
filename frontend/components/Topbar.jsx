@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import clsx from "clsx";
 
 import { useDocUIStore } from "../lib/store";
 
@@ -12,17 +11,17 @@ const quickLinks = [
   { label: "Demos", href: "/demos" },
 ];
 
-const versions = ["v0.1.0", "v0.0.x"];
-
-export default function Topbar() {
-  const { openSearch, version, setVersion } = useDocUIStore();
+export default function Topbar({ site }) {
+  const { openSearch } = useDocUIStore();
+  const siteName = site?.name || "llamatelemetry Documentation";
+  const siteVersion = site?.version || "v0.1.0";
 
   return (
     <header className="topbar">
       <div className="topbar-inner">
         <div className="brand">
           <span className="brand-mark">llama</span>
-          <span className="brand-name">llamatelemetry Documentation</span>
+          <span className="brand-name">{siteName}</span>
         </div>
         <div className="topbar-links">
           {quickLinks.map((link) => (
@@ -36,20 +35,7 @@ export default function Topbar() {
             Search
             <span className="shortcut">⌘K</span>
           </button>
-          <div className="version-switcher">
-            <span className="version-label">Version</span>
-            <div className="version-options">
-              {versions.map((item) => (
-                <button
-                  key={item}
-                  className={clsx("chip", version === item && "chip-active")}
-                  onClick={() => setVersion(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
+          <span className="version-badge">{siteVersion}</span>
         </div>
       </div>
     </header>

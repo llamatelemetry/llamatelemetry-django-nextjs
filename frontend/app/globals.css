@@ -28,6 +28,7 @@ body {
     radial-gradient(circle at 90% 15%, #f3efe7 0%, transparent 50%),
     linear-gradient(120deg, var(--bg) 0%, var(--bg-2) 50%, #f8efe4 100%);
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 a {
@@ -129,21 +130,15 @@ a {
   color: var(--muted);
 }
 
-.version-switcher {
-  display: grid;
-  gap: 6px;
-}
-
-.version-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.version-badge {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
   color: var(--muted);
-}
-
-.version-options {
-  display: flex;
-  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
 
 .layout {
@@ -393,6 +388,23 @@ a {
   font-size: 13px;
   color: var(--muted);
   margin-bottom: 10px;
+}
+
+.quickstart-card pre {
+  margin: 0;
+  background: #101516;
+  color: #f8f8f2;
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.quickstart-card code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .recipes-hub h1 {

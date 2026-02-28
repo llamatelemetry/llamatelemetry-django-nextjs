@@ -65,6 +65,12 @@ export default function SearchOverlay({ index }) {
       .slice(0, 20);
   }, [index, searchQuery, searchScope]);
 
+  const scopeOptions = useMemo(() => {
+    const categories = new Set(index.map((item) => item.category));
+    const order = ["all", "Home", "Get Started", "Guides", "API Reference", "Notebooks", "Project", "Docs"];
+    return order.filter((scope) => scope === "all" || categories.has(scope));
+  }, [index]);
+
   if (!searchOpen) {
     return null;
   }
@@ -90,7 +96,7 @@ export default function SearchOverlay({ index }) {
             onChange={(event) => setSearchQuery(event.target.value)}
           />
           <div className="search-scope">
-            {["all", "Get Started", "Guides", "API Reference", "Project"].map((scope) => (
+            {scopeOptions.map((scope) => (
               <button
                 key={scope}
                 className={clsx("chip", searchScope === scope && "chip-active")}

@@ -1,6 +1,8 @@
+import json
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = BASE_DIR.parent
 
 SECRET_KEY = "django-insecure-llamatelemetry-docs"
 DEBUG = True
@@ -46,3 +48,17 @@ NEXTJS_SETTINGS = {
     "ensure_csrf_token": True,
     "public_subdirectory": "/next",
 }
+
+SITE_INFO = {
+    "name": "llamatelemetry Documentation",
+    "version": "v0.1.0",
+    "description": "Extensive documentation for llamatelemetry v0.1.0: inference, observability, Kaggle, GGUF, APIs, and notebooks.",
+    "titleTemplate": "%s - llamatelemetry Documentation",
+}
+
+_site_path = PROJECT_ROOT / "site.json"
+if _site_path.exists():
+    try:
+        SITE_INFO.update(json.loads(_site_path.read_text(encoding="utf-8")))
+    except (json.JSONDecodeError, OSError):
+        pass
